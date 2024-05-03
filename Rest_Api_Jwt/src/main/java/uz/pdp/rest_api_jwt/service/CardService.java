@@ -21,6 +21,7 @@ public class CardService {
       public Result addCard(Card card){
 
             boolean exists = cardRepository.existsByUsername(card.getUsername());
+
             if (exists){
                return new Result("Such Card was exist",false);
             }
@@ -28,31 +29,31 @@ public class CardService {
             return new Result("Card was added",true);
       }
 
-
+      // if this card belong to Owner of the Card, we can return his Card by ID
       public Card getCardById(Integer id){
+
             Optional<Card> optionalCard = cardRepository.findById(id);
             if (!optionalCard.isPresent()) {
                   return new Card();
             }
-            Card card = optionalCard.get();
+             Card card = optionalCard.get();
             UserDetails userDetails = myAuthService.loadUserByUsername(card.getUsername());
-            if (userDetails==null) {
+            if (userDetails == null) {
                 return null;
             }
             return optionalCard.orElse(null);
       }
 
+      public Result editCardById(Card card, Integer id){
 
-      public Result editCardById(Card card,Integer id){
-
-            boolean exists = cardRepository.existsByUsernameAndIdNot(card.getUsername(),id);
+            boolean exists = cardRepository.existsByUsernameAndIdNot(card.getUsername(), id);
             if (exists)
-                  return new Result("there was such Card",false);
+               return new Result("there was such Card",false);
 
             Optional<Card> optionalCard = cardRepository.findById(id);
             if (!optionalCard.isPresent())
                   return new Result("Card was not found",false);
-            Card card1 = optionalCard.get();
+             Card card1 = optionalCard.get();
             card1.setBalance(card.getBalance());
             card1.setActive(card.isActive());
             card1.setNumber(card.getNumber());
@@ -61,7 +62,6 @@ public class CardService {
             cardRepository.save(card);
             return new Result("Card was edited",true);
       }
-
 
       public Result deleteCard(Integer id){
             try {

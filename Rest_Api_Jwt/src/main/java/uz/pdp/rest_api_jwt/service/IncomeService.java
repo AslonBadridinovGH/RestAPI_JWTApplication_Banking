@@ -20,32 +20,30 @@ public class IncomeService {
 
       @Autowired
       IncomeRepository  incomeRepository;
-
       @Autowired
       CardRepository  cardRepository;
 
 
       public Result addIncome(IncomeDto incomeDto){
 
-            Income income=new Income();
+             Income income=new Income();
             income.setAmount(incomeDto.getAmount());
 
             DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
             try {
-                  Date date = dateFormat.parse(incomeDto.getDate());
+                   Date date = dateFormat.parse(incomeDto.getDate());
                   java.sql.Date sqlDate=new java.sql.Date(date.getTime());
                   income.setDate(sqlDate);
             } catch (Exception e) {
                 return new Result("enter  date(dd.MM.yyyy)",false);
             }
 
-
             Optional<Card> optionalFromCard = cardRepository.findById(incomeDto.getFromCardId());
             if (!optionalFromCard.isPresent()) {
                 return new Result("FromCardId was not found",false);
             }
 
-            Card cardFrom = optionalFromCard.get();
+             Card cardFrom = optionalFromCard.get();
             income.setFromCard(cardFrom);
 
             Optional<Card> optionalToCard = cardRepository.findById(incomeDto.getToCardId());
@@ -54,7 +52,7 @@ public class IncomeService {
             }
             income.setToCard(optionalToCard.get());
 
-            Card toCard = optionalToCard.get();
+             Card toCard = optionalToCard.get();
             Double balanceToCard = toCard.getBalance();
 
             toCard.setBalance(balanceToCard+incomeDto.getAmount());
@@ -76,31 +74,31 @@ public class IncomeService {
       }
 
 
-      public Result editIncomeById(IncomeDto incomeDto,Integer id){
+      public Result editIncomeById(IncomeDto incomeDto, Integer id){
 
             Optional<Income> optionalIncome = incomeRepository.findById(id);
             if (!optionalIncome.isPresent()) {
                 return new Result("Income was not found",false);
             }
 
-            Income income = optionalIncome.get();
+             Income income = optionalIncome.get();
             income.setAmount(incomeDto.getAmount());
 
-            DateFormat dateFormat=new SimpleDateFormat("dd.MM.yyyy");
+             DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
             try {
                   Date date = dateFormat.parse(incomeDto.getDate());
-                  java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+                  java.sql.Date sqlDate = new java.sql.Date(date.getTime());
                   income.setDate(sqlDate);
             } catch (Exception e) {
                   return new Result("enter  date(dd.MM.yyyy)",false);
             }
 
-
             Optional<Card> optionalFromCard = cardRepository.findById(incomeDto.getFromCardId());
-            if (!optionalFromCard.isPresent())
+
+             if (!optionalFromCard.isPresent())
                   return new Result("FromCardId was not found",false);
 
-            Card cardFrom = optionalFromCard.get();
+             Card cardFrom = optionalFromCard.get();
             income.setFromCard(cardFrom);
 
             Optional<Card> optionalToCard = cardRepository.findById(incomeDto.getToCardId());
@@ -109,7 +107,7 @@ public class IncomeService {
 
             income.setToCard(optionalToCard.get());
 
-            Card toCard = optionalToCard.get();
+             Card toCard = optionalToCard.get();
             Double balanceToCard = toCard.getBalance();
             toCard.setBalance(balanceToCard+incomeDto.getAmount());
 

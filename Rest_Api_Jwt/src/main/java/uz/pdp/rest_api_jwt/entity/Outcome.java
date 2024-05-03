@@ -24,9 +24,9 @@ public class Outcome {
     private  Double  commissionAmount;
 
     @ManyToOne
-    private  Card   fromCard;
+    private  Card fromCard;
 
     @ManyToOne
-    private  Card   toCard;
+    private  Card toCard;
 
 }

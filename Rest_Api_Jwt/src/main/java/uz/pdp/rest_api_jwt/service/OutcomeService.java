@@ -57,7 +57,7 @@ public class OutcomeService {
         }
         outcome.setToCard(optionalToCard.get());
 
-        Card card = optionalFromCard.get();
+         Card card = optionalFromCard.get();
         if (card.getBalance()>=(outcomeDto.getAmount()+outcomeDto.getCommissionAmount())) {
             UserDetails userDetails = myAuthService.loadUserByUsername(card.getUsername());
             if (!userDetails.isEnabled()) {
@@ -98,12 +98,11 @@ public class OutcomeService {
           DateFormat dateFormat=new SimpleDateFormat("dd.MM.yyyy");
           try {
               Date date = dateFormat.parse(outcomeDto.getDate());
-              java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+              java.sql.Date sqlDate = new java.sql.Date(date.getTime());
               outcome.setDate(sqlDate);
           } catch (Exception e) {
               return new Result("enter  date(dd.MM.yyyy)",false);
           }
-
 
             Optional<Card> optionalFromCard = cardRepository.findById(outcomeDto.getFromCardId());
             if (!optionalFromCard.isPresent())
@@ -115,7 +114,7 @@ public class OutcomeService {
             outcome.setToCard(optionalToCard.get());
 
             Card card = optionalFromCard.get();
-            if (card.getBalance()>(outcomeDto.getAmount()+outcomeDto.getCommissionAmount())) {
+            if (card.getBalance() > (outcomeDto.getAmount()+outcomeDto.getCommissionAmount())) {
               UserDetails userDetails = myAuthService.loadUserByUsername(card.getUsername());
                 if (!userDetails.isEnabled())
                     return new Result("User was not found",false);

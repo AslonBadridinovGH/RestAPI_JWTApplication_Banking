@@ -18,13 +18,13 @@ public class Income {
     private Integer id;
 
     @ManyToOne
-    private   Card    fromCard;
+    private Card fromCard;
 
     @ManyToOne
-    private   Card    toCard;
+    private Card toCard;
 
-    private   Double  amount;
+    private Double amount;
 
-    private   Date  date;
+    private Date  date;
 
 }

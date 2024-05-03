@@ -34,7 +34,7 @@ public class IncomeController {
     @GetMapping("/{id}")
     public HttpEntity<?>getIncomesById(@PathVariable Integer id){
         Income incomeById = incomeService.getIncomeById(id);
-        return  ResponseEntity.status(incomeById !=null? HttpStatus.OK:HttpStatus.CONFLICT).body(incomeById);
+        return  ResponseEntity.status(incomeById != null ? HttpStatus.OK : HttpStatus.CONFLICT).body(incomeById);
     }
 
     @PutMapping("/{id}")
